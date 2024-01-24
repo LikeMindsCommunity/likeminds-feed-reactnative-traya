@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface trayaTests : XCTestCase
+@interface likeminds_chat_reactnative_trayaTests : XCTestCase
 
 @end
 
-@implementation trayaTests
+@implementation likeminds_chat_reactnative_trayaTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
