@@ -22,7 +22,7 @@ import {
   LMChatroomCallbacks,
   LMChatCallbacks,
   NavigateToProfileParams,
-  STYLES,
+  NavigateToGroupDetailsParams,
   RadialGradient,
 } from "likeminds_chat_reactnative_integration";
 import { myClient } from ".";
@@ -37,9 +37,10 @@ function App(): React.JSX.Element {
   const chatroomId = "";
   const announcementRoomId = "";
   const profileImageUrl = "";
+  const gender: string = "male";
 
   useEffect(() => {
-    setStyles();
+    setStyles(gender);
   }, []);
 
   // Override callBacks with custom logic
@@ -55,12 +56,16 @@ function App(): React.JSX.Element {
     onEventTriggered(eventName: string, eventProperties?: Map<string, string>) {
       // Override onEventTriggered with custom logic
     }
+
+    navigateToGroupDetails(params: NavigateToGroupDetailsParams) {
+      // Override navigateToGroupDetails with custom logic
+    }
   }
 
   const lmChatInterface = new CustomCallbacks();
 
   const gradientStyling = {
-    colors: ["#3BA773", "#0B713F"],
+    colors: gender === "male" ? ["#3BA773", "#0B713F"] : ["#B25647", "#CC8A7A"],
     style: {
       flex: 1,
       borderBottomLeftRadius: 16,
@@ -85,6 +90,7 @@ function App(): React.JSX.Element {
               chatroomID: chatroomId,
               isInvited: false,
               announcementRoomId: announcementRoomId,
+              gender: gender,
               tabNavigator: ChatroomTabNavigator,
               backIconPath: require("./assets/images/backIcon.png"),
             }}

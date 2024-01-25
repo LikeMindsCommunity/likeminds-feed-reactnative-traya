@@ -1,21 +1,37 @@
 import { STYLES } from "likeminds_chat_reactnative_integration";
 
-export const setStyles = () => {
+export const setStyles = (gender: string) => {
   // themeStyling
-  const themeStyles = {
-    hue: 10,
-    fontColor: "black",
-    primaryColor: "#B7D340",
-    secondaryColor: "#B7D340",
-    lightBackgroundColor: "#d7f7ed",
-    fontTypes: {
-      LIGHT: "NunitoSans-Light",
-      MEDIUM: "NunitoSans-Medium",
-      SEMI_BOLD: "NunitoSans-SemiBold",
-      BOLD: "NunitoSans-Bold",
-      BLACK: "NunitoSans-Black",
-    },
-  };
+  const themeStyles =
+    gender === "male"
+      ? {
+          hue: 10,
+          fontColor: "black",
+          primaryColor: "#B7D340",
+          secondaryColor: "#B7D340",
+          lightBackgroundColor: "hsl(161, 67%, 91%)",
+          fontTypes: {
+            LIGHT: "NunitoSans-Light",
+            MEDIUM: "NunitoSans-Medium",
+            SEMI_BOLD: "NunitoSans-SemiBold",
+            BOLD: "NunitoSans-Bold",
+            BLACK: "NunitoSans-Black",
+          },
+        }
+      : {
+          hue: 10,
+          fontColor: "black",
+          primaryColor: "#553B3B",
+          secondaryColor: "#553B3B",
+          lightBackgroundColor: "hsla(11, 56%, 65%, 0.16)",
+          fontTypes: {
+            LIGHT: "NunitoSans-Light",
+            MEDIUM: "NunitoSans-Medium",
+            SEMI_BOLD: "NunitoSans-SemiBold",
+            BOLD: "NunitoSans-Bold",
+            BLACK: "NunitoSans-Black",
+          },
+        };
 
   // styling for chatroom header
   const chatroomHeaderStyles = {
@@ -31,54 +47,106 @@ export const setStyles = () => {
   };
 
   // styling for chatBubble
-  const chatBubbleStyles = {
-    textStyles: {
-      fontSize: 15,
-    },
-    linkTextColor: "#3CA874",
-    taggingTextColor: "#3CA874",
-    stateMessagesBackgroundColor: "#3CA87429",
-    stateMessagesTextStyles: {
-      color: "#808080",
-    },
-    dateStateMessage: {
-      color: "#808080",
-    },
-    messageReceivedHeader: {
-      senderNameStyles: {
-        color: "#3CA874",
-        fontSize: 15,
-      },
-      senderDesignationStyles: {
-        fontSize: 14,
-      },
-    },
-    playPauseBoxIcon: {
-      backgroundColor: "#B7D340",
-    },
-    voiceNoteSlider: {
-      minimumTrackTintColor: "#B7D340",
-      thumbTintColor: "#B7D340",
-    },
-    pollVoteSliderColor: {
-      backgroundColor: "#3CA87429",
-    },
-  };
+  const chatBubbleStyles =
+    gender === "male"
+      ? {
+          textStyles: {
+            fontSize: 15,
+          },
+          linkTextColor: "#3CA874",
+          taggingTextColor: "#3CA874",
+          selectedMessagesBackgroundColor: "#3CA87429",
+          stateMessagesTextStyles: {
+            color: "#808080",
+          },
+          dateStateMessage: {
+            color: "#808080",
+          },
+          messageReceivedHeader: {
+            senderNameStyles: {
+              color: "#3CA874",
+              fontSize: 15,
+            },
+            senderDesignationStyles: {
+              fontSize: 14,
+            },
+          },
+          playPauseBoxIcon: {
+            backgroundColor: "#B7D340",
+          },
+          voiceNoteSlider: {
+            minimumTrackTintColor: "#B7D340",
+            thumbTintColor: "#B7D340",
+          },
+          pollVoteSliderColor: {
+            backgroundColor: "#3CA87429",
+          },
+          sentMessageBackgroundColor: "#C7E3D6",
+        }
+      : {
+          textStyles: {
+            fontSize: 15,
+          },
+          linkTextColor: "#D88673",
+          taggingTextColor: "#D88673",
+          selectedMessagesBackgroundColor: "#f7d7de",
+          stateMessagesTextStyles: {
+            color: "#808080",
+          },
+          dateStateMessage: {
+            color: "#808080",
+          },
+          messageReceivedHeader: {
+            senderNameStyles: {
+              color: "#C66B5D",
+              fontSize: 15,
+            },
+            senderDesignationStyles: {
+              fontSize: 14,
+            },
+          },
+          playPauseBoxIcon: {
+            backgroundColor: "#D88673",
+          },
+          voiceNoteSlider: {
+            minimumTrackTintColor: "#D88673",
+            thumbTintColor: "#D88673",
+          },
+          pollVoteSliderColor: {
+            backgroundColor: "hsla(11, 56%, 65%, 0.16)",
+          },
+          sentMessageBackgroundColor: "#FAD9D2",
+        };
 
   // styling for inputBox
-  const inputBoxStyles = {
-    placeholderTextColor: "#aaa",
-    selectionColor: "#3CA874",
-    partsTextStyle: {
-      color: "#3CA874",
-    },
-    sendIconStyles: {
-      tintColor: "black",
-    },
-    micIconStyles: {
-      tintColor: "black",
-    },
-  };
+  const inputBoxStyles =
+    gender === "male"
+      ? {
+          placeholderTextColor: "#aaa",
+          selectionColor: "#3CA874",
+          partsTextStyle: {
+            color: "#3CA874",
+          },
+          sendIconStyles: {
+            tintColor: "black",
+          },
+          micIconStyles: {
+            tintColor: "black",
+          },
+        }
+      : {
+          placeholderTextColor: "#aaa",
+          selectionColor: "#D88673",
+          partsTextStyle: {
+            color: "#D88673",
+          },
+          sendIconStyles: {
+            tintColor: "white",
+          },
+          micIconStyles: {
+            tintColor: "white",
+          },
+        };
 
   if (chatBubbleStyles) {
     STYLES.setChatBubbleStyle(chatBubbleStyles);

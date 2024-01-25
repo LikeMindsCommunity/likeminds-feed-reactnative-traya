@@ -6,6 +6,7 @@ function ChatroomTabNavigator({
   navigation,
   chatroomId,
   announcementRoomId,
+  gender,
   lmChatInterface,
 }: ChatroomTabNavigatorProps) {
   const [activeTab, setActiveTab] = useState(1); // Defaulting to the first tab
@@ -28,13 +29,28 @@ function ChatroomTabNavigator({
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={[styles.tabButton, activeTab === 1 && styles.activeTab]}
+        style={[
+          styles.tabButton,
+          {
+            backgroundColor:
+              gender === "male"
+                ? "hsl(151, 23%, 86%)"
+                : "hsla(11, 56%, 65%, 0.16)",
+          },
+          activeTab === 1 && styles.activeTab,
+          {
+            borderColor:
+              gender === "male" ? "hsl(151, 47%, 45%)" : "hsl(11, 56%, 65%)",
+          },
+        ]}
         onPress={() => handleTabPress(1)}
       >
         <Image
           source={
             activeTab === 1
-              ? require("../../assets/images/chatActive.png")
+              ? gender === "male"
+                ? require("../../assets/images/chatActiveMale.png")
+                : require("../../assets/images/chatActiveFemale.png")
               : require("../../assets/images/chatInactive.png")
           }
           style={styles.tabIcon}
@@ -42,13 +58,28 @@ function ChatroomTabNavigator({
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.tabButton, activeTab === 2 && styles.activeTab]}
+        style={[
+          styles.tabButton,
+          {
+            backgroundColor:
+              gender === "male"
+                ? "hsl(151, 23%, 86%)"
+                : "hsla(11, 56%, 65%, 0.16)",
+          },
+          activeTab === 2 && styles.activeTab,
+          {
+            borderColor:
+              gender === "male" ? "hsl(151, 47%, 45%)" : "hsl(11, 56%, 65%)",
+          },
+        ]}
         onPress={() => handleTabPress(2)}
       >
         <Image
           source={
             activeTab === 2
-              ? require("../../assets/images/announcementActive.png")
+              ? gender === "male"
+                ? require("../../assets/images/announcementActiveMale.png")
+                : require("../../assets/images/announcementActiveFemale.png")
               : require("../../assets/images/announcementInactive.png")
           }
           style={styles.tabIcon}
@@ -56,13 +87,28 @@ function ChatroomTabNavigator({
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.tabButton, activeTab === 3 && styles.activeTab]}
+        style={[
+          styles.tabButton,
+          {
+            backgroundColor:
+              gender === "male"
+                ? "hsl(151, 23%, 86%)"
+                : "hsla(11, 56%, 65%, 0.16)",
+          },
+          activeTab === 3 && styles.activeTab,
+          {
+            borderColor:
+              gender === "male" ? "hsl(151, 47%, 45%)" : "hsl(11, 56%, 65%)",
+          },
+        ]}
         onPress={() => handleTabPress(3)}
       >
         <Image
           source={
             activeTab === 3
-              ? require("../../assets/images/profileActive.png")
+              ? gender === "male"
+                ? require("../../assets/images/profileActiveMale.png")
+                : require("../../assets/images/profileActiveFemale.png")
               : require("../../assets/images/profileInactive.png")
           }
           style={styles.tabIcon}
@@ -76,7 +122,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#f2f2f2", // Set your desired background color
+    backgroundColor: "#f2f2f2",
     padding: 10,
   },
   tabButton: {
@@ -85,13 +131,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
     borderRadius: 30,
-    backgroundColor: "hsl(151, 23%, 86%)",
     margin: 10,
   },
   activeTab: {
     backgroundColor: "white",
     borderRadius: 30,
-    borderColor: "hsl(151, 47%, 45%)",
     borderWidth: 2,
   },
   tabIcon: {
