@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Platform, StatusBar, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -27,6 +27,7 @@ import {
 } from "likeminds_chat_reactnative_integration";
 import { myClient } from ".";
 import ChatroomTabNavigator from "./src/ChatroomTabNavigator";
+import { setStyles } from "./styles";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,99 +38,9 @@ function App(): React.JSX.Element {
   const announcementRoomId = "";
   const profileImageUrl = "";
 
-  // themeStyling
-  const themeStyles = {
-    hue: 10,
-    fontColor: "black",
-    primaryColor: "#B7D340",
-    secondaryColor: "#B7D340",
-    lightBackgroundColor: "#d7f7ed",
-    fontTypes: {
-      LIGHT: "NunitoSans-Light",
-      MEDIUM: "NunitoSans-Medium",
-      SEMI_BOLD: "NunitoSans-SemiBold",
-      BOLD: "NunitoSans-Bold",
-      BLACK: "NunitoSans-Black",
-    },
-  };
-
-  // styling for reactionList
-  {
-    /*
-  const reactionListStyles = {
-    reactionSize: 0,
-    reactionLeftItemStroke: "pink",
-    reactionRightItemStroke: "yellow",
-    reactionItemBorderRadius: 5,
-    gap: 5,
-  };
-  */
-  }
-
-  // styling for chatBubble
-  const chatBubbleStyles = {
-    // borderRadius: 5,
-    // sentMessageBackgroundColor: "yellow",
-    // receivedMessageBackgroundColor: "pink",
-    // selectedBackgroundColor: "grey",
-    // selectedMessageBackgroundColor: "purple",
-    textStyles: {
-      fontSize: 16,
-    },
-    linkTextColor: "#3CA874",
-    taggingTextColor: "#3CA874",
-    stateMessagesBackgroundColor: "#3CA87429",
-    stateMessagesTextStyles: {
-      color: "#808080",
-    },
-    dateStateMessage: {
-      color: "#808080",
-    },
-    messageReceivedHeader: {
-      color: "#3CA874",
-    },
-    playPauseBoxIcon: {
-      backgroundColor: "#B7D340",
-    },
-    voiceNoteSlider: {
-      minimumTrackTintColor: "#B7D340",
-      thumbTintColor: "#B7D340",
-    },
-    pollVoteSliderColor: {
-      backgroundColor: "#3CA87429",
-    },
-  };
-
-  // styling for inputBox
-  const inputBoxStyles = {
-    placeholderTextColor: "#aaa",
-    selectionColor: "#aaa",
-    partsTextStyle: {
-      color: "#3CA874",
-    },
-    sendIconStyles: {
-      tintColor: "black",
-    },
-    micIconStyles: {
-      tintColor: "black",
-    },
-  };
-
-  if (chatBubbleStyles) {
-    STYLES.setChatBubbleStyle(chatBubbleStyles);
-  }
-
-  if (themeStyles) {
-    STYLES.setTheme(themeStyles);
-  }
-
-  // if (reactionListStyles) {
-  //   STYLES.setReactionListStyle(reactionListStyles);
-  // }
-
-  if (inputBoxStyles) {
-    STYLES.setInputBoxStyle(inputBoxStyles);
-  }
+  useEffect(() => {
+    setStyles();
+  }, []);
 
   // Override callBacks with custom logic
   class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
@@ -175,6 +86,7 @@ function App(): React.JSX.Element {
               isInvited: false,
               announcementRoomId: announcementRoomId,
               tabNavigator: ChatroomTabNavigator,
+              backIconPath: require("./assets/images/backIcon.png"),
             }}
             options={() => {
               if (Object.keys(gradientStyling).length !== 0) {
@@ -213,6 +125,9 @@ function App(): React.JSX.Element {
             options={{ gestureEnabled: false }}
             name={"PollResult"}
             component={PollResult}
+            initialParams={{
+              backIconPath: require("./assets/images/backIcon.png"),
+            }}
           />
           <Stack.Screen
             name={"CreatePollScreen"}
