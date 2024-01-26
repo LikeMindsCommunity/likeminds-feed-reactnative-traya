@@ -26,10 +26,32 @@ import {
   RadialGradient,
 } from "likeminds_chat_reactnative_integration";
 import { myClient } from ".";
-import ChatroomTabNavigator from "./src/ChatroomTabNavigator";
-import { setStyles } from "./styles";
+import ChatroomTabNavigator from "./src/chatroomTabNavigator";
+import { setStyles } from "./src/styles";
+import { ScreenName } from "./src/enums/screenNameEnums";
 
 const Stack = createNativeStackNavigator();
+
+// Override callBacks with custom logic
+class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
+  navigateToProfile(params: NavigateToProfileParams) {
+    // Override navigateToProfile with custom logic
+  }
+
+  navigateToHomePage() {
+    // Override navigateToHomePage with custom logic
+  }
+
+  onEventTriggered(eventName: string, eventProperties?: Map<string, string>) {
+    // Override onEventTriggered with custom logic
+  }
+
+  navigateToGroupDetails(params: NavigateToGroupDetailsParams) {
+    // Override navigateToGroupDetails with custom logic
+  }
+}
+
+const lmChatInterface = new CustomCallbacks();
 
 function App(): React.JSX.Element {
   const userName = "";
@@ -42,27 +64,6 @@ function App(): React.JSX.Element {
   useEffect(() => {
     setStyles(gender);
   }, []);
-
-  // Override callBacks with custom logic
-  class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
-    navigateToProfile(params: NavigateToProfileParams) {
-      // Override navigateToProfile with custom logic
-    }
-
-    navigateToHomePage() {
-      // Override navigateToHomePage with custom logic
-    }
-
-    onEventTriggered(eventName: string, eventProperties?: Map<string, string>) {
-      // Override onEventTriggered with custom logic
-    }
-
-    navigateToGroupDetails(params: NavigateToGroupDetailsParams) {
-      // Override navigateToGroupDetails with custom logic
-    }
-  }
-
-  const lmChatInterface = new CustomCallbacks();
 
   const gradientStyling = {
     colors: gender === "male" ? ["#3BA773", "#0B713F"] : ["#B25647", "#CC8A7A"],
@@ -84,7 +85,7 @@ function App(): React.JSX.Element {
       <NavigationContainer ref={navigationRef} independent={true}>
         <Stack.Navigator>
           <Stack.Screen
-            name="ChatRoom"
+            name={ScreenName.ChatRoom}
             component={ChatRoom}
             initialParams={{
               chatroomID: chatroomId,
@@ -118,30 +119,30 @@ function App(): React.JSX.Element {
           />
           <Stack.Screen
             options={{ gestureEnabled: Platform.OS === "ios" ? false : true }}
-            name={"FileUpload"}
+            name={ScreenName.FileUpload}
             component={FileUpload}
           />
           <Stack.Screen name={"VideoPlayer"} component={VideoPlayer} />
           <Stack.Screen
             options={{ gestureEnabled: false }}
-            name={"CarouselScreen"}
+            name={ScreenName.CarouselScreen}
             component={CarouselScreen}
           />
           <Stack.Screen
             options={{ gestureEnabled: false }}
-            name={"PollResult"}
+            name={ScreenName.PollResult}
             component={PollResult}
             initialParams={{
               backIconPath: require("./assets/images/backIcon.png"),
             }}
           />
           <Stack.Screen
-            name={"CreatePollScreen"}
+            name={ScreenName.CreatePollScreen}
             component={CreatePollScreen}
           />
           <Stack.Screen
             options={{ headerShown: false }}
-            name={"ImageCropScreen"}
+            name={ScreenName.ImageCropScreen}
             component={ImageCropScreen}
           />
         </Stack.Navigator>

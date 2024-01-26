@@ -33,9 +33,7 @@ function ChatroomTabNavigator({
           styles.tabButton,
           {
             backgroundColor:
-              gender === "male"
-                ? "hsl(151, 23%, 86%)"
-                : "hsla(11, 56%, 65%, 0.16)",
+              gender === "male" ? "hsl(151, 23%, 86%)" : "hsl(11,53%,94%)",
           },
           activeTab === 1 && styles.activeTab,
           {
@@ -48,12 +46,15 @@ function ChatroomTabNavigator({
         <Image
           source={
             activeTab === 1
-              ? gender === "male"
-                ? require("../../assets/images/chatActiveMale.png")
-                : require("../../assets/images/chatActiveFemale.png")
+              ? require("../../assets/images/chatActive.png")
               : require("../../assets/images/chatInactive.png")
           }
-          style={styles.tabIcon}
+          style={[
+            styles.tabIcon,
+            gender === "male" && activeTab
+              ? { tintColor: "hsl(151, 47%, 45%)" }
+              : { tintColor: "hsl(11, 56%, 65%)" },
+          ]}
         />
       </TouchableOpacity>
 
@@ -62,9 +63,7 @@ function ChatroomTabNavigator({
           styles.tabButton,
           {
             backgroundColor:
-              gender === "male"
-                ? "hsl(151, 23%, 86%)"
-                : "hsla(11, 56%, 65%, 0.16)",
+              gender === "male" ? "hsl(151, 23%, 86%)" : "hsl(11,53%,94%)",
           },
           activeTab === 2 && styles.activeTab,
           {
@@ -77,12 +76,15 @@ function ChatroomTabNavigator({
         <Image
           source={
             activeTab === 2
-              ? gender === "male"
-                ? require("../../assets/images/announcementActiveMale.png")
-                : require("../../assets/images/announcementActiveFemale.png")
+              ? require("../../assets/images/announcementActive.png")
               : require("../../assets/images/announcementInactive.png")
           }
-          style={styles.tabIcon}
+          style={[
+            styles.tabIcon,
+            gender === "male" && activeTab
+              ? { tintColor: "hsl(151, 47%, 45%)" }
+              : { tintColor: "hsl(11, 56%, 65%)" },
+          ]}
         />
       </TouchableOpacity>
 
@@ -91,9 +93,7 @@ function ChatroomTabNavigator({
           styles.tabButton,
           {
             backgroundColor:
-              gender === "male"
-                ? "hsl(151, 23%, 86%)"
-                : "hsla(11, 56%, 65%, 0.16)",
+              gender === "male" ? "hsl(151, 23%, 86%)" : "hsl(11,53%,94%)",
           },
           activeTab === 3 && styles.activeTab,
           {
@@ -106,12 +106,15 @@ function ChatroomTabNavigator({
         <Image
           source={
             activeTab === 3
-              ? gender === "male"
-                ? require("../../assets/images/profileActiveMale.png")
-                : require("../../assets/images/profileActiveFemale.png")
+              ? require("../../assets/images/profileActive.png")
               : require("../../assets/images/profileInactive.png")
           }
-          style={styles.tabIcon}
+          style={[
+            styles.tabIcon,
+            gender === "male" && activeTab
+              ? { tintColor: "hsl(151, 47%, 45%)" }
+              : { tintColor: "hsl(11, 56%, 65%)" },
+          ]}
         />
       </TouchableOpacity>
     </View>

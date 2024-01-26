@@ -5,7 +5,6 @@ export const setStyles = (gender: string) => {
   const themeStyles =
     gender === "male"
       ? {
-          hue: 10,
           fontColor: "black",
           primaryColor: "#B7D340",
           secondaryColor: "#B7D340",
@@ -19,11 +18,10 @@ export const setStyles = (gender: string) => {
           },
         }
       : {
-          hue: 10,
           fontColor: "black",
           primaryColor: "#553B3B",
           secondaryColor: "#553B3B",
-          lightBackgroundColor: "hsla(11, 56%, 65%, 0.16)",
+          lightBackgroundColor: "hsl(11,53%,94%)",
           fontTypes: {
             LIGHT: "NunitoSans-Light",
             MEDIUM: "NunitoSans-Medium",
@@ -113,7 +111,7 @@ export const setStyles = (gender: string) => {
             thumbTintColor: "#D88673",
           },
           pollVoteSliderColor: {
-            backgroundColor: "hsla(11, 56%, 65%, 0.16)",
+            backgroundColor: "hsl(11,53%,94%)",
           },
           sentMessageBackgroundColor: "#FAD9D2",
         };
