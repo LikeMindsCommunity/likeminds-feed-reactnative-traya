@@ -26,7 +26,7 @@ import {
   RadialGradient,
 } from "likeminds_chat_reactnative_integration";
 import { myClient } from ".";
-import ChatroomTabNavigator from "./src/chatroomTabNavigator";
+import ChatroomTabNavigator from "./src/ChatroomTabNavigator";
 import { setStyles } from "./src/styles";
 import { ScreenName } from "./src/enums/screenNameEnums";
 
