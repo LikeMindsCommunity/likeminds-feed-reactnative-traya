@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import { ChatroomTabNavigatorProps } from "./type";
+import { ScreenName } from "../enums/screenNameEnums";
 
 function ChatroomTabNavigator({
   navigation,
@@ -14,15 +15,18 @@ function ChatroomTabNavigator({
   const handleTabPress = (tabIndex: number) => {
     setActiveTab(tabIndex);
     if (tabIndex == 1) {
-      return navigation.navigate("ChatRoom", {
+      return navigation.navigate(ScreenName.ChatRoom, {
         chatroomID: chatroomId?.toString(),
       });
     } else if (tabIndex == 2) {
-      return navigation.navigate("ChatRoom", {
+      return navigation.navigate(ScreenName.ChatRoom, {
         chatroomID: announcementRoomId?.toString(),
       });
     } else if (tabIndex == 3) {
       lmChatInterface.navigateToProfile();
+      return navigation.navigate(ScreenName.ChatRoom, {
+        chatroomID: "4170088",
+      });
     }
   };
 
@@ -51,9 +55,13 @@ function ChatroomTabNavigator({
           }
           style={[
             styles.tabIcon,
-            gender === "male" && activeTab
+            gender === "male" && activeTab === 1
               ? { tintColor: "hsl(151, 47%, 45%)" }
-              : { tintColor: "hsl(11, 56%, 65%)" },
+              : gender === "male" && activeTab !== 1
+              ? { tintColor: "hsl(0,0%,50%)" }
+              : gender === "female" && activeTab === 1
+              ? { tintColor: "hsl(11, 56%, 65%)" }
+              : { tintColor: "hsl(0,0%,50%)" },
           ]}
         />
       </TouchableOpacity>
@@ -81,9 +89,13 @@ function ChatroomTabNavigator({
           }
           style={[
             styles.tabIcon,
-            gender === "male" && activeTab
+            gender === "male" && activeTab === 2
               ? { tintColor: "hsl(151, 47%, 45%)" }
-              : { tintColor: "hsl(11, 56%, 65%)" },
+              : gender === "male" && activeTab !== 2
+              ? { tintColor: "hsl(0,0%,50%)" }
+              : gender === "female" && activeTab === 2
+              ? { tintColor: "hsl(11, 56%, 65%)" }
+              : { tintColor: "hsl(0,0%,50%)" },
           ]}
         />
       </TouchableOpacity>
@@ -111,9 +123,13 @@ function ChatroomTabNavigator({
           }
           style={[
             styles.tabIcon,
-            gender === "male" && activeTab
+            gender === "male" && activeTab === 3
               ? { tintColor: "hsl(151, 47%, 45%)" }
-              : { tintColor: "hsl(11, 56%, 65%)" },
+              : gender === "male" && activeTab !== 3
+              ? { tintColor: "hsl(0,0%,50%)" }
+              : gender === "female" && activeTab === 3
+              ? { tintColor: "hsl(11, 56%, 65%)" }
+              : { tintColor: "hsl(0,0%,50%)" },
           ]}
         />
       </TouchableOpacity>
