@@ -1,6 +1,8 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+pod 'GoogleUtilities', :modular_headers => true
+
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
@@ -13,7 +15,7 @@ prepare_react_native_project!
 #   dependencies: {
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
-flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
+# flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
@@ -23,6 +25,21 @@ end
 
 target 'likeminds_chat_reactnative_traya' do
   config = use_native_modules!
+
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+
+  def node_require(script)
+    # Resolve script with node to allow for hoisting
+   require Pod::Executable.execute_command('node', ['-p',
+      "require.resolve(
+        '#{script}',
+        {paths: [process.argv[1]]},
+      )", __dir__]).strip
+   end
+ 
+   node_require('react-native/scripts/react_native_pods.rb')
+   node_require('react-native-permissions/scripts/setup.rb')
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -38,7 +55,7 @@ target 'likeminds_chat_reactnative_traya' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    # :flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -47,6 +64,15 @@ target 'likeminds_chat_reactnative_traya' do
     inherit! :complete
     # Pods for testing
   end
+
+  setup_permissions([
+    'Camera',
+    'LocationWhenInUse',
+    'Microphone',
+    'Notifications',
+    'PhotoLibrary',
+    'PhotoLibraryAddOnly',
+  ])
 
   post_install do |installer|
     react_native_post_install(
