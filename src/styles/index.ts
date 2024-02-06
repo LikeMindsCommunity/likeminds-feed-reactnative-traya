@@ -1,4 +1,4 @@
-import { STYLES } from "likeminds_chat_reactnative_integration";
+import { STYLES } from "@likeminds.community/chat-rn-core";
 
 export const setStyles = (gender: string) => {
   // themeStyling
@@ -42,6 +42,9 @@ export const setStyles = (gender: string) => {
       color: "white",
       fontSize: 13,
     },
+    chatroomSelectedHeaderIcons: {
+      tintColor: "white",
+    },
   };
 
   // styling for chatBubble
@@ -56,6 +59,7 @@ export const setStyles = (gender: string) => {
           selectedMessagesBackgroundColor: "#3CA87429",
           stateMessagesTextStyles: {
             color: "#808080",
+            backgroundColor: "#C7E3D6",
           },
           dateStateMessage: {
             color: "#808080",
@@ -90,6 +94,7 @@ export const setStyles = (gender: string) => {
           selectedMessagesBackgroundColor: "#f7d7de",
           stateMessagesTextStyles: {
             color: "#808080",
+            backgroundColor: "#FAD9D2",
           },
           dateStateMessage: {
             color: "#808080",
@@ -146,6 +151,16 @@ export const setStyles = (gender: string) => {
           },
         };
 
+  // styling for reaction list
+  const reactionListStyles =
+    gender === "male"
+      ? {
+          tabOptionColor: "#B7D340",
+        }
+      : {
+          tabOptionColor: "#D88673",
+        };
+
   if (chatBubbleStyles) {
     STYLES.setChatBubbleStyle(chatBubbleStyles);
   }
@@ -156,6 +171,10 @@ export const setStyles = (gender: string) => {
 
   if (chatroomHeaderStyles) {
     STYLES.setChatroomHeaderStyle(chatroomHeaderStyles);
+  }
+
+  if (reactionListStyles) {
+    STYLES.setReactionListStyle(reactionListStyles);
   }
 
   if (inputBoxStyles) {

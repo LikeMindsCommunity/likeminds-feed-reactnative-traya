@@ -24,7 +24,7 @@ import {
   NavigateToProfileParams,
   NavigateToGroupDetailsParams,
   RadialGradient,
-} from "likeminds_chat_reactnative_integration";
+} from "@likeminds.community/chat-rn-core";
 import { myClient } from ".";
 import ChatroomTabNavigator from "./src/ChatroomTabNavigator";
 import { setStyles } from "./src/styles";
