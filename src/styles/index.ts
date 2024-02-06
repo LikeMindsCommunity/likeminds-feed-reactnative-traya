@@ -1,4 +1,4 @@
-import { STYLES } from "likeminds_chat_reactnative_integration";
+import { STYLES } from "@likeminds.community/chat-rn-core";
 
 export const setStyles = (gender: string) => {
   // themeStyling
