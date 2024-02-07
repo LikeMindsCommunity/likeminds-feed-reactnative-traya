@@ -24,9 +24,6 @@ function ChatroomTabNavigator({
       });
     } else if (tabIndex == 3) {
       lmChatInterface.navigateToProfile();
-      return navigation.navigate(ScreenName.ChatRoom, {
-        chatroomID: "4189188",
-      });
     }
   };
 
