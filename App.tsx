@@ -94,6 +94,7 @@ function App(): React.JSX.Element {
               gender: gender,
               tabNavigator: ChatroomTabNavigator,
               backIconPath: require("./assets/images/backIcon.png"),
+              backgroundImage: "", // add your background image here
             }}
             options={() => {
               if (Object.keys(gradientStyling).length !== 0) {
