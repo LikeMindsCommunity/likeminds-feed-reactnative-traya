@@ -66,11 +66,10 @@ function HomeScreen() {
 }
 
 function SettingsScreen() {
-  const userName = "TestUser";
-  const userUniqueId = "TestUser";
-  // const chatroomId = "4198005";
-  const chatroomId = "4209357";
-  const announcementRoomId = "4197912";
+  const userName = "";
+  const userUniqueId = "";
+  const chatroomId = "";
+  const announcementRoomId = "";
   const profileImageUrl = "";
   const gender: string = "male";
 
