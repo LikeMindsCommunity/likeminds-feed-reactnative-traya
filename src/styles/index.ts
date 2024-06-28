@@ -59,7 +59,6 @@ export const setStyles = (gender: string) => {
           selectedMessagesBackgroundColor: "#3CA87429",
           stateMessagesTextStyles: {
             color: "#808080",
-            backgroundColor: "#C7E3D6",
           },
           dateStateMessage: {
             color: "#808080",
@@ -94,7 +93,6 @@ export const setStyles = (gender: string) => {
           selectedMessagesBackgroundColor: "#f7d7de",
           stateMessagesTextStyles: {
             color: "#808080",
-            backgroundColor: "#FAD9D2",
           },
           dateStateMessage: {
             color: "#808080",

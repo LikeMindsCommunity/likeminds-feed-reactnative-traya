@@ -4,7 +4,6 @@
  *
  * @format
  */
-
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Keyboard, Platform, StatusBar, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,30 +12,37 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { navigationRef } from "./RootNavigation";
 import {
   CarouselScreen,
-  ChatRoom,
   CreatePollScreen,
-  FileUpload,
   ImageCropScreen,
   PollResult,
   VideoPlayer,
   LMOverlayProvider,
-  LMChatroomCallbacks,
   LMChatCallbacks,
+  LMChatroomCallbacks,
   NavigateToProfileParams,
   NavigateToGroupDetailsParams,
-  RadialGradient,
 } from "@likeminds.community/chat-rn-core";
 import { myClient } from ".";
-import ChatroomTabNavigator from "./src/ChatroomTabNavigator";
 import { setStyles } from "./src/styles";
 import { ScreenName } from "./src/enums/screenNameEnums";
+import ChatroomScreenWrapper from "./screens/Chatroom/ChatroomScreenWrapper";
+import FileUploadScreenWrapper from "./screens/FileUpload/FileUploadWrapper";
 
 const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Home!</Text>
+    </View>
+  );
+}
 
 // Override callBacks with custom logic
 class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
   navigateToProfile(params: NavigateToProfileParams) {
     // Override navigateToProfile with custom logic
+    console.log("params", params);
   }
 
   navigateToHomePage() {
@@ -57,14 +63,6 @@ class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
 
 const lmChatInterface = new CustomCallbacks();
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
 function SettingsScreen() {
   const userName = "";
   const userUniqueId = "";
@@ -77,15 +75,6 @@ function SettingsScreen() {
     setStyles(gender);
   }, []);
 
-  const gradientStyling = {
-    colors: gender === "male" ? ["#3BA773", "#0B713F"] : ["#B25647", "#CC8A7A"],
-    style: {
-      flex: 1,
-      borderBottomLeftRadius: 16,
-      borderBottomRightRadius: 16,
-    },
-  };
-
   return (
     <LMOverlayProvider
       myClient={myClient}
@@ -97,42 +86,22 @@ function SettingsScreen() {
       <Stack.Navigator>
         <Stack.Screen
           name={ScreenName.ChatRoom}
-          component={ChatRoom}
+          component={ChatroomScreenWrapper}
           initialParams={{
             chatroomID: chatroomId,
-            isInvited: false,
             announcementRoomId: announcementRoomId,
-            gender: gender,
-            tabNavigator: ChatroomTabNavigator,
-            backIconPath: require("./assets/images/backIcon.png"),
-            backgroundImage: "", // add your background image here
-          }}
-          options={() => {
-            if (Object.keys(gradientStyling).length !== 0) {
-              return {
-                headerBackground: () => (
-                  <View
-                    style={{
-                      flex: 1,
-                    }}
-                  >
-                    <StatusBar
-                      translucent
-                      backgroundColor="transparent"
-                      barStyle="light-content"
-                    />
-                    <RadialGradient {...gradientStyling} />
-                  </View>
-                ),
-              };
-            }
-            return {};
+            // backIconPath: require("./assets/images/backIcon.png"),
+            // backgroundImage: "", // add your background image here
           }}
         />
         <Stack.Screen
           options={{ gestureEnabled: Platform.OS === "ios" ? false : true }}
           name={ScreenName.FileUpload}
-          component={FileUpload}
+          component={FileUploadScreenWrapper}
+          initialParams={{
+            backIconPath: "", // add your back icon path here
+            imageCropIcon: "", // add your image crop icon path here
+          }}
         />
         <Stack.Screen name={"VideoPlayer"} component={VideoPlayer} />
         <Stack.Screen
