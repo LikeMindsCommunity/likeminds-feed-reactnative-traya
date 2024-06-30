@@ -27,6 +27,14 @@ import { setStyles } from "./src/styles";
 import { ScreenName } from "./src/enums/screenNameEnums";
 import ChatroomScreenWrapper from "./screens/Chatroom/ChatroomScreenWrapper";
 import FileUploadScreenWrapper from "./screens/FileUpload/FileUploadWrapper";
+import {
+  announcementRoomId,
+  chatroomId,
+  gender,
+  profileImageUrl,
+  userName,
+  userUniqueId,
+} from "./src/userAndCommunityInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +50,6 @@ function HomeScreen() {
 class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
   navigateToProfile(params: NavigateToProfileParams) {
     // Override navigateToProfile with custom logic
-    console.log("params", params);
   }
 
   navigateToHomePage() {
@@ -51,8 +58,6 @@ class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
 
   onEventTriggered(eventName: string, eventProperties?: Map<string, string>) {
     // Bugfender.log("eventName -- eventProperties", eventName, eventProperties);
-
-    console.log("eventName -- eventProperties", eventName, eventProperties);
     // Override onEventTriggered with custom logic
   }
 
@@ -64,13 +69,6 @@ class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
 const lmChatInterface = new CustomCallbacks();
 
 function SettingsScreen() {
-  const userName = "";
-  const userUniqueId = "";
-  const chatroomId = "";
-  const announcementRoomId = "";
-  const profileImageUrl = "";
-  const gender: string = "male";
-
   useEffect(() => {
     setStyles(gender);
   }, []);
@@ -90,8 +88,6 @@ function SettingsScreen() {
           initialParams={{
             chatroomID: chatroomId,
             announcementRoomId: announcementRoomId,
-            // backIconPath: require("./assets/images/backIcon.png"),
-            // backgroundImage: "", // add your background image here
           }}
         />
         <Stack.Screen

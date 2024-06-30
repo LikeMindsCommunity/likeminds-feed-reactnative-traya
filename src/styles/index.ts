@@ -35,12 +35,12 @@ export const setStyles = (gender: string) => {
   const chatroomHeaderStyles = {
     chatroomNameHeaderStyle: {
       color: "white",
-      fontSize: 18,
+      fontSize: 16,
       fontFamily: "NunitoSans-Bold",
     },
     chatroomSubHeaderStyle: {
       color: "white",
-      fontSize: 13,
+      fontSize: 12,
     },
     chatroomSelectedHeaderIcons: {
       tintColor: "white",

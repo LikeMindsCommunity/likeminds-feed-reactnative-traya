@@ -8,6 +8,14 @@ import {
   useMessageListContext,
 } from "@likeminds.community/chat-rn-core";
 import ChatroomTabNavigator from "../../src/ChatroomTabNavigator";
+import {
+  announcementRoomId,
+  backIconPath,
+  backgroundImage,
+  chatroomId,
+  gender,
+} from "../../src/userAndCommunityInfo";
+import { ImageBackground } from "react-native";
 
 interface HintMessages {
   messageForRightsDisabled?: string;
@@ -17,9 +25,6 @@ interface HintMessages {
 }
 
 export function ChatroomScreen() {
-  const chatroomId = "4296660";
-  const announcementRoomId = "4296659";
-  const gender: string = "female";
   const showViewParticipants = true;
   const showShareChatroom = true;
   const showMuteNotifications = true;
@@ -154,21 +159,39 @@ export function ChatroomScreen() {
       <ChatroomHeader
         isChatroomTabNavigatorPresent={isChatroomTabNavigatorPresent}
         gender={gender}
+        backIconPath={backIconPath}
       />
-
-      <ChatroomTabNavigator
-        chatroomId={chatroomId}
-        announcementRoomId={announcementRoomId}
-        gender={gender}
-      />
-
-      {/* Message List */}
-      <MessageList
-        onTapToUndo={customOnTapToUndo}
-        scrollToBottom={customScrollToBottom}
-        showChatroomTopic={showChatroomTopic}
-      />
-
+      {backgroundImage ? (
+        <ImageBackground
+          resizeMode="cover"
+          style={{ flex: 1, justifyContent: "center" }}
+          source={backgroundImage}
+        >
+          <ChatroomTabNavigator
+            chatroomId={chatroomId}
+            announcementRoomId={announcementRoomId}
+            gender={gender}
+          />
+          <MessageList
+            onTapToUndo={customOnTapToUndo}
+            scrollToBottom={customScrollToBottom}
+            showChatroomTopic={showChatroomTopic}
+          />
+        </ImageBackground>
+      ) : (
+        <>
+          <ChatroomTabNavigator
+            chatroomId={chatroomId}
+            announcementRoomId={announcementRoomId}
+            gender={gender}
+          />
+          <MessageList
+            onTapToUndo={customOnTapToUndo}
+            scrollToBottom={customScrollToBottom}
+            showChatroomTopic={showChatroomTopic}
+          />
+        </>
+      )}
       {/* Input Box Flow */}
       <MessageInput
         joinSecretChatroomProp={customJoinSecretChatroom}
