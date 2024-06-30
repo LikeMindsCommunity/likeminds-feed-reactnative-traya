@@ -6,3 +6,4 @@ export const gender: string = "female";
 export const backIconPath = require("../../assets/images/backIcon.png");
 export const profileImageUrl = "";
 export const backgroundImage = "";
+export const imageCropIcon = "";

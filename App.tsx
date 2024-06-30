@@ -29,6 +29,7 @@ import ChatroomScreenWrapper from "./screens/Chatroom/ChatroomScreenWrapper";
 import FileUploadScreenWrapper from "./screens/FileUpload/FileUploadWrapper";
 import {
   announcementRoomId,
+  backIconPath,
   chatroomId,
   gender,
   profileImageUrl,
@@ -94,10 +95,6 @@ function SettingsScreen() {
           options={{ gestureEnabled: Platform.OS === "ios" ? false : true }}
           name={ScreenName.FileUpload}
           component={FileUploadScreenWrapper}
-          initialParams={{
-            backIconPath: "", // add your back icon path here
-            imageCropIcon: "", // add your image crop icon path here
-          }}
         />
         <Stack.Screen name={"VideoPlayer"} component={VideoPlayer} />
         <Stack.Screen
@@ -110,7 +107,7 @@ function SettingsScreen() {
           name={ScreenName.PollResult}
           component={PollResult}
           initialParams={{
-            backIconPath: require("./assets/images/backIcon.png"),
+            backIconPath: backIconPath,
           }}
         />
         <Stack.Screen
