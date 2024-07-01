@@ -79,7 +79,7 @@ function SettingsScreen() {
   }, []);
 
   {
-    /* Logic to handle foreground notification to be written by the client */
+    /* Logic to handle foreground notification to be written by the client, below is the sample code */
   }
   // useEffect(() => {
   //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
