@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ChatRoom,
   ChatroomHeader,
@@ -6,6 +6,7 @@ import {
   MessageInput,
   useChatroomContext,
   useMessageListContext,
+  Token,
 } from "@likeminds.community/chat-rn-core";
 import ChatroomTabNavigator from "../../src/ChatroomTabNavigator";
 import {
@@ -16,6 +17,7 @@ import {
   gender,
 } from "../../src/userAndCommunityInfo";
 import { ImageBackground } from "react-native";
+import { pushAPI, token } from "../../src/pushNotification";
 
 interface HintMessages {
   messageForRightsDisabled?: string;
@@ -131,6 +133,23 @@ export function ChatroomScreen() {
     await scrollToBottom();
     console.log("after custom scroll to bottom");
   };
+
+  const [FCMToken, setFCMToken] = useState("");
+
+  /// Setup notifications
+  useEffect(() => {
+    token().then((res) => {
+      if (!!res) {
+        setFCMToken(res);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (FCMToken) {
+      pushAPI(FCMToken, Token.accessToken);
+    }
+  }, [FCMToken]);
 
   return (
     <ChatRoom

@@ -5,8 +5,8 @@
  * @format
  */
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Keyboard, Platform, StatusBar, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { Keyboard, Platform, Text, View } from "react-native";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { navigationRef } from "./RootNavigation";
@@ -21,6 +21,8 @@ import {
   LMChatroomCallbacks,
   NavigateToProfileParams,
   NavigateToGroupDetailsParams,
+  getNotification,
+  getRoute,
 } from "@likeminds.community/chat-rn-core";
 import { myClient } from ".";
 import { setStyles } from "./src/styles";
@@ -36,6 +38,8 @@ import {
   userName,
   userUniqueId,
 } from "./src/userAndCommunityInfo";
+import messaging from "@react-native-firebase/messaging";
+import notifee, { EventType } from "@notifee/react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +77,51 @@ function SettingsScreen() {
   useEffect(() => {
     setStyles(gender);
   }, []);
+
+  {
+    /* Logic to handle foreground notification to be written by the client */
+  }
+  // useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+  //     const val = await getNotification(remoteMessage);
+  //     return val;
+  //   });
+
+  //   notifee.onForegroundEvent(async ({ type, detail }) => {
+  //     if (detail?.notification?.data?.route != undefined) {
+  //       const navigation = navigationRef?.current;
+  //       let currentRoute = navigation?.getCurrentRoute();
+  //       let routes = await getRoute(detail?.notification?.data?.route);
+
+  //       if (type === EventType.PRESS) {
+  //         if (!!navigation) {
+  //           if ((currentRoute?.name as any) === routes?.route) {
+  //             if (
+  //               JSON.stringify(routes?.params) !==
+  //               JSON.stringify(currentRoute?.params)
+  //             ) {
+  //               const popAction = StackActions.pop(1);
+  //               navigation.dispatch(popAction);
+  //               setTimeout(() => {
+  //                 navigation.navigate(
+  //                   routes?.route as never,
+  //                   routes?.params as never
+  //                 );
+  //               }, 1000);
+  //             }
+  //           } else {
+  //             navigation.navigate(
+  //               routes?.route as never,
+  //               routes?.params as never
+  //             ); //navigate(CHATROOM, {chatroomID: 69285});
+  //           }
+  //         }
+  //       }
+  //     }
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
 
   return (
     <LMOverlayProvider
