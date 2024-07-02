@@ -19,10 +19,13 @@ import messaging from "@react-native-firebase/messaging";
 //   return val;
 // });
 
-const filterStateMessage = []; // give type of conversation to be filtered using ConversationState enum
+const filterStateMessage = [ConversationState.MEMBER_LEFT_SECRET_CHATROOM]; // give type of conversation to be filtered using ConversationState enum
 
 // proivde apiKey below to initMyClient
-const myClient = initMyClient("", filterStateMessage); // pass api key as first param and filterStateMessage array as second param
+const myClient = initMyClient(
+  "0cc1cd78-7b75-44b3-8bb5-b974c6710bdd",
+  filterStateMessage
+); // pass api key as first param and filterStateMessage array as second param
 
 AppRegistry.registerComponent(appName, () => App);
 

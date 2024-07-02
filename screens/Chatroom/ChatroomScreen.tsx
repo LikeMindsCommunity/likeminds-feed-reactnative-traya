@@ -15,6 +15,7 @@ import {
   backgroundImage,
   chatroomId,
   gender,
+  groupIcon,
 } from "../../src/userAndCommunityInfo";
 import { ImageBackground } from "react-native";
 import { pushAPI, token } from "../../src/pushNotification";
@@ -38,7 +39,18 @@ export function ChatroomScreen() {
   const showViewProfile = true;
   const showSecretLeaveChatroom = true;
   const showChatroomTopic = false;
-  const isChatroomTabNavigatorPresent = true;
+  const showChatroomIcon = true;
+  const customChatroomUserTitle = "Moderator";
+  const showThreeDotsOnHeader = false;
+  const showThreeDotsOnSelectedHeader = false;
+  const gradientStyling = {
+    colors: gender === "male" ? ["#3BA773", "#0B713F"] : ["#B25647", "#CC8A7A"],
+    style: {
+      flex: 1,
+      borderBottomLeftRadius: 16,
+      borderBottomRightRadius: 16,
+    },
+  };
 
   const {
     setChatroomTopic,
@@ -176,9 +188,14 @@ export function ChatroomScreen() {
     >
       {/* ChatroomHeader */}
       <ChatroomHeader
-        isChatroomTabNavigatorPresent={isChatroomTabNavigatorPresent}
+        showChatroomIcon={showChatroomIcon}
+        customChatroomUserTitle={customChatroomUserTitle}
+        showThreeDotsOnHeader={showThreeDotsOnHeader}
+        showThreeDotsOnSelectedHeader={showThreeDotsOnSelectedHeader}
+        gradientStyling={gradientStyling}
         gender={gender}
         backIconPath={backIconPath}
+        groupIcon={groupIcon}
       />
       {backgroundImage ? (
         <ImageBackground
