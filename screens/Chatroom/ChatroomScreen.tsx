@@ -193,7 +193,6 @@ export function ChatroomScreen() {
         showThreeDotsOnHeader={showThreeDotsOnHeader}
         showThreeDotsOnSelectedHeader={showThreeDotsOnSelectedHeader}
         gradientStyling={gradientStyling}
-        gender={gender}
         backIconPath={backIconPath}
         groupIcon={groupIcon}
       />
