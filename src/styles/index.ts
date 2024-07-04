@@ -35,12 +35,12 @@ export const setStyles = (gender: string) => {
   const chatroomHeaderStyles = {
     chatroomNameHeaderStyle: {
       color: "white",
-      fontSize: 18,
+      fontSize: 16,
       fontFamily: "NunitoSans-Bold",
     },
     chatroomSubHeaderStyle: {
       color: "white",
-      fontSize: 13,
+      fontSize: 12,
     },
     chatroomSelectedHeaderIcons: {
       tintColor: "white",
@@ -59,7 +59,6 @@ export const setStyles = (gender: string) => {
           selectedMessagesBackgroundColor: "#3CA87429",
           stateMessagesTextStyles: {
             color: "#808080",
-            backgroundColor: "#C7E3D6",
           },
           dateStateMessage: {
             color: "#808080",
@@ -94,7 +93,6 @@ export const setStyles = (gender: string) => {
           selectedMessagesBackgroundColor: "#f7d7de",
           stateMessagesTextStyles: {
             color: "#808080",
-            backgroundColor: "#FAD9D2",
           },
           dateStateMessage: {
             color: "#808080",

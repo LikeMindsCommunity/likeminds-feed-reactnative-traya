@@ -4,34 +4,52 @@
  *
  * @format
  */
-
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Keyboard, Platform, StatusBar, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { Keyboard, Platform, Text, View } from "react-native";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { navigationRef } from "./RootNavigation";
 import {
   CarouselScreen,
-  ChatRoom,
   CreatePollScreen,
-  FileUpload,
   ImageCropScreen,
   PollResult,
   VideoPlayer,
   LMOverlayProvider,
-  LMChatroomCallbacks,
   LMChatCallbacks,
+  LMChatroomCallbacks,
   NavigateToProfileParams,
   NavigateToGroupDetailsParams,
-  RadialGradient,
+  getNotification,
+  getRoute,
 } from "@likeminds.community/chat-rn-core";
 import { myClient } from ".";
-import ChatroomTabNavigator from "./src/ChatroomTabNavigator";
 import { setStyles } from "./src/styles";
 import { ScreenName } from "./src/enums/screenNameEnums";
+import ChatroomScreenWrapper from "./screens/Chatroom/ChatroomScreenWrapper";
+import FileUploadScreenWrapper from "./screens/FileUpload/FileUploadWrapper";
+import {
+  announcementRoomId,
+  backIconPath,
+  chatroomId,
+  gender,
+  profileImageUrl,
+  userName,
+  userUniqueId,
+} from "./src/userAndCommunityInfo";
+import messaging from "@react-native-firebase/messaging";
+import notifee, { EventType } from "@notifee/react-native";
 
 const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Home!</Text>
+    </View>
+  );
+}
 
 // Override callBacks with custom logic
 class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
@@ -45,8 +63,6 @@ class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
 
   onEventTriggered(eventName: string, eventProperties?: Map<string, string>) {
     // Bugfender.log("eventName -- eventProperties", eventName, eventProperties);
-
-    console.log("eventName -- eventProperties", eventName, eventProperties);
     // Override onEventTriggered with custom logic
   }
 
@@ -57,34 +73,55 @@ class CustomCallbacks implements LMChatCallbacks, LMChatroomCallbacks {
 
 const lmChatInterface = new CustomCallbacks();
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
 function SettingsScreen() {
-  const userName = "";
-  const userUniqueId = "";
-  const chatroomId = "";
-  const announcementRoomId = "";
-  const profileImageUrl = "";
-  const gender: string = "male";
-
   useEffect(() => {
     setStyles(gender);
   }, []);
 
-  const gradientStyling = {
-    colors: gender === "male" ? ["#3BA773", "#0B713F"] : ["#B25647", "#CC8A7A"],
-    style: {
-      flex: 1,
-      borderBottomLeftRadius: 16,
-      borderBottomRightRadius: 16,
-    },
-  };
+  {
+    /* Logic to handle foreground notification to be written by the client, below is the sample code */
+  }
+  // useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+  //     const val = await getNotification(remoteMessage);
+  //     return val;
+  //   });
+
+  //   notifee.onForegroundEvent(async ({ type, detail }) => {
+  //     if (detail?.notification?.data?.route != undefined) {
+  //       const navigation = navigationRef?.current;
+  //       let currentRoute = navigation?.getCurrentRoute();
+  //       let routes = await getRoute(detail?.notification?.data?.route);
+
+  //       if (type === EventType.PRESS) {
+  //         if (!!navigation) {
+  //           if ((currentRoute?.name as any) === routes?.route) {
+  //             if (
+  //               JSON.stringify(routes?.params) !==
+  //               JSON.stringify(currentRoute?.params)
+  //             ) {
+  //               const popAction = StackActions.pop(1);
+  //               navigation.dispatch(popAction);
+  //               setTimeout(() => {
+  //                 navigation.navigate(
+  //                   routes?.route as never,
+  //                   routes?.params as never
+  //                 );
+  //               }, 1000);
+  //             }
+  //           } else {
+  //             navigation.navigate(
+  //               routes?.route as never,
+  //               routes?.params as never
+  //             ); //navigate(CHATROOM, {chatroomID: 69285});
+  //           }
+  //         }
+  //       }
+  //     }
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
 
   return (
     <LMOverlayProvider
@@ -97,42 +134,16 @@ function SettingsScreen() {
       <Stack.Navigator>
         <Stack.Screen
           name={ScreenName.ChatRoom}
-          component={ChatRoom}
+          component={ChatroomScreenWrapper}
           initialParams={{
             chatroomID: chatroomId,
-            isInvited: false,
             announcementRoomId: announcementRoomId,
-            gender: gender,
-            tabNavigator: ChatroomTabNavigator,
-            backIconPath: require("./assets/images/backIcon.png"),
-            backgroundImage: "", // add your background image here
-          }}
-          options={() => {
-            if (Object.keys(gradientStyling).length !== 0) {
-              return {
-                headerBackground: () => (
-                  <View
-                    style={{
-                      flex: 1,
-                    }}
-                  >
-                    <StatusBar
-                      translucent
-                      backgroundColor="transparent"
-                      barStyle="light-content"
-                    />
-                    <RadialGradient {...gradientStyling} />
-                  </View>
-                ),
-              };
-            }
-            return {};
           }}
         />
         <Stack.Screen
           options={{ gestureEnabled: Platform.OS === "ios" ? false : true }}
           name={ScreenName.FileUpload}
-          component={FileUpload}
+          component={FileUploadScreenWrapper}
         />
         <Stack.Screen name={"VideoPlayer"} component={VideoPlayer} />
         <Stack.Screen
@@ -145,7 +156,7 @@ function SettingsScreen() {
           name={ScreenName.PollResult}
           component={PollResult}
           initialParams={{
-            backIconPath: require("./assets/images/backIcon.png"),
+            backIconPath: backIconPath,
           }}
         />
         <Stack.Screen
